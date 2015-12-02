@@ -1,0 +1,69 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="rss-list">
+  <template>
+    <style>
+      :host {
+        padding: 0 20px;
+      }
+    </style>
+
+    <iron-ajax
+      id="ajax"
+      auto
+      url="[[url]]"
+      handle-as="json"
+      last-response="{{items}}"
+      debounce-duration="300"></iron-ajax>
+
+      <h1>[[header]]</h1>
+      <ul>
+        <template is="dom-repeat" items="{{items}}">
+          <template is="dom-if" if="{{_hasUrl(item)}}">
+            <li><a href="{{item.url}}">{{item.title}}</a></li>
+          </template>
+          <template is="dom-if" if="{{!_hasUrl(item)}}">
+            <li>{{item.title}}</li>
+          </template>
+        </template>
+      </ul>
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        is: 'rss-list',
+        properties: {
+          items: {
+            type: Array,
+            notify: true
+          },
+          header: String,
+          url: String
+        },
+
+        attached: function() {
+          this._timerId = setInterval(this._fetchData.bind(this), 10*60*1000);
+        },
+
+        detached: function() {
+          if (this._timerId) {
+            clearInterval(this._timerId);
+          }
+        },
+
+        _fetchData: function() {
+          console.log('Requesting latest items for ' + this.url);
+          this.$.ajax.generateRequest();
+        },
+
+        _hasUrl: function(item) {
+          return item.url !== undefined;
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

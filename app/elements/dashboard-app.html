@@ -1,0 +1,54 @@
+<link rel="import" href="latest-vaadin-version.html">
+<link rel="import" href="office-current-weather.html">
+<link rel="import" href="rss-list.html">
+<link rel="import" href="tweet-list.html">
+
+<dom-module id="dashboard-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 100%;
+      }
+    </style>
+    <div class="layout horizontal" style="height: 100%">
+      <div class="layout vertical flex-1" style="height: 100%">
+        <div class="layout vertical flex-1 top-bottom-margin">
+          <latest-vaadin-version class="lightgreen" dashboard-rest-url="[[dashboardRestUrl]]"></latest-vaadin-version>
+          <office-current-weather class="flex cyan"></office-current-weather>
+        </div>
+        <rss-list header="Blog" class="flex-1 orange" url="[[dashboardRestUrl]]/rss/?url=http://vaadin.com/blog/-/blogs/rss"></rss-list>
+      </div>
+      <div class="layout vertical flex-1" style="height: 100%">
+        <rss-list header="Support" class="flex-1 teal" url="[[supportRestUrl]]"></rss-list>
+        <rss-list header="Forums" class="flex-1 pink" url="[[dashboardRestUrl]]/rss/?url=http://vaadin.com/old-forum/-/message_boards/rss?p_l_id=2890834%26_19_mbCategoryId=%26_19_groupId=10187%26_19_topLink=recent-posts"></rss-list>
+      </div>
+      <div class="layout vertical flex-1" style="height: 100%">
+        <rss-list header="SO" class="flex-1 green" url="[[dashboardRestUrl]]/rss/?url=http://stackoverflow.com/feeds/tag?tagnames=vaadin%20or%20vaadin7%26sort=newest"></rss-list>
+        <rss-list header="Directory" class="flex-1 bluegray" url="[[dashboardRestUrl]]/latest-vaadin-addons/"></rss-list>
+      </div>
+      <div class="layout vertical flex-1" style="height: 100%">
+        <tweet-list header="#vaadin" class="flex-1 gray" style="height: 100%;" url="[[dashboardRestUrl]]/vaadin-tweets/"></tweet-list>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        is: 'dashboard-app',
+        properties: {
+          dashboardRestUrl: {
+            value: 'http://ussupport.attlocal.net/us-dashboard-rest/' // http://localhost:8080/
+          },
+          supportRestUrl: {
+            value: 'http://192.168.7.68:8080/ussupport/rest/hello'
+          }
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

@@ -1,0 +1,54 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="latest-vaadin-version">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+    </style>
+
+    <iron-ajax
+      id="ajax"
+      auto
+      url="[[dashboardRestUrl]]/latest-vaadin-version/"
+      handle-as="text"
+      on-response="_handleResponse"
+      debounce-duration="300"></iron-ajax>
+
+      <h1 id="version"></h1>
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        is: 'latest-vaadin-version',
+        properties: {
+            dashboardRestUrl: String
+        },
+
+        attached: function() {
+          this._timerId = setInterval(this._fetchData.bind(this), 10*60*1000);
+        },
+
+        detached: function() {
+          if (this._timerId) {
+            clearInterval(this._timerId);
+          }
+        },
+
+        _fetchData: function() {
+          console.log('Requesting latest Vaadin version');
+          this.$.ajax.generateRequest();
+        },
+
+        _handleResponse: function(event) {
+          this.$.version.innerHTML = event.detail.response;
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

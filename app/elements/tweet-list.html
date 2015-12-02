@@ -1,0 +1,60 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/x-tweet/x-tweet.html">
+
+<dom-module id="tweet-list">
+  <template>
+    <style>
+      :host {
+        padding: 0 20px;
+        overflow: hidden;
+      }
+    </style>
+
+    <iron-ajax
+      id="ajax"
+      auto
+      url="[[url]]"
+      handle-as="json"
+      last-response="{{items}}"
+      debounce-duration="300"></iron-ajax>
+
+    <h1>{{header}}</h1>
+      <template is="dom-repeat" items="{{items}}">
+        <x-tweet tweetid="{{item.id}}"></x-tweet>
+      </template>
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        is: 'tweet-list',
+        properties: {
+          items: {
+            type: Array,
+            notify: true
+          },
+          header: String,
+          url: String
+        },
+
+        attached: function() {
+          this._timerId = setInterval(this._fetchData.bind(this), 10*60*1000);
+        },
+
+        detached: function() {
+          if (this._timerId) {
+            clearInterval(this._timerId);
+          }
+        },
+
+        _fetchData: function() {
+          console.log('Requesting latest tweets from ' + this.url);
+          this.$.ajax.generateRequest();
+        }
+      });
+    })();
+  </script>
+
+</dom-module>
