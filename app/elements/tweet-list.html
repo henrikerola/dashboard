@@ -19,9 +19,9 @@
       debounce-duration="300"></iron-ajax>
 
     <h1>{{header}}</h1>
-      <template is="dom-repeat" items="{{items}}">
-        <x-tweet tweetid="{{item.id}}"></x-tweet>
-      </template>
+    <template is="dom-repeat" items="{{items}}">
+      <x-tweet tweetid="{{item.id}}" expand="false"></x-tweet>
+    </template>
   </template>
 
   <script>
