@@ -1,6 +1,6 @@
 <link rel="import" href="latest-vaadin-version.html">
 <link rel="import" href="office-current-weather.html">
-<link rel="import" href="rss-list.html">
+<link rel="import" href="feed-list.html">
 <link rel="import" href="tweet-list.html">
 
 <dom-module id="dashboard-app">
@@ -12,23 +12,18 @@
       }
     </style>
     <div class="layout horizontal" style="height: 100%">
-      <div class="layout vertical flex-1" style="height: 100%">
-        <div class="layout vertical flex-1 top-bottom-margin">
-          <latest-vaadin-version class="lightgreen" dashboard-rest-url="[[dashboardRestUrl]]"></latest-vaadin-version>
-          <office-current-weather class="flex cyan"></office-current-weather>
-        </div>
-        <rss-list header="Blog" class="flex-1 orange" url="[[dashboardRestUrl]]/rss/?url=http://vaadin.com/blog/-/blogs/rss"></rss-list>
+      <div class="layout vertical flex-3" style="height: 100%">
+        <feed-list header="Blog" class="flex-1 orange" url="[[dashboardRestUrl]]/feed/vaadin-blog/?count=6"></feed-list>
+        <feed-list header="Support" class="flex-1 teal" url="[[supportRestUrl]]"></feed-list>
+        <feed-list header="Directory" class="flex-1 bluegray" url="[[dashboardRestUrl]]/feed/vaadin-addons/?count=6"></feed-list>
       </div>
-      <div class="layout vertical flex-1" style="height: 100%">
-        <rss-list header="Support" class="flex-1 teal" url="[[supportRestUrl]]"></rss-list>
-        <rss-list header="Forums" class="flex-1 pink" url="[[dashboardRestUrl]]/rss/?url=http://vaadin.com/old-forum/-/message_boards/rss?p_l_id=2890834%26_19_mbCategoryId=%26_19_groupId=10187%26_19_topLink=recent-posts"></rss-list>
+      <div class="layout vertical flex-3" style="height: 100%">
+        <latest-vaadin-version class="lightgreen" dashboard-rest-url="[[dashboardRestUrl]]"></latest-vaadin-version>
+        <feed-list header="Forums" class="flex-1 gray" url="[[dashboardRestUrl]]/feed/vaadin-forums/?count=6"></feed-list>
+        <feed-list header="SO" class="flex-1 green" url="[[dashboardRestUrl]]/feed/stackoverflow-vaadin-questions/?count=6"></feed-list>
       </div>
-      <div class="layout vertical flex-1" style="height: 100%">
-        <rss-list header="SO" class="flex-1 green" url="[[dashboardRestUrl]]/rss/?url=http://stackoverflow.com/feeds/tag?tagnames=vaadin%20or%20vaadin7%26sort=newest"></rss-list>
-        <rss-list header="Directory" class="flex-1 bluegray" url="[[dashboardRestUrl]]/latest-vaadin-addons/"></rss-list>
-      </div>
-      <div class="layout vertical flex-1" style="height: 100%">
-        <tweet-list header="#vaadin" class="flex-1 gray" style="height: 100%;" url="[[dashboardRestUrl]]/vaadin-tweets/"></tweet-list>
+      <div class="layout vertical flex-2" style="height: 100%">
+        <tweet-list header="#vaadin" class="flex-1 pink" style="height: 100%;" url="[[dashboardRestUrl]]/vaadin-tweets/"></tweet-list>
       </div>
     </div>
   </template>
@@ -41,10 +36,10 @@
         is: 'dashboard-app',
         properties: {
           dashboardRestUrl: {
-            value: 'http://ussupport.attlocal.net/us-dashboard-rest/' // http://localhost:8080/
+            value: 'http://' + window.location.hostname + ':8080/us-dashboard-rest'
           },
           supportRestUrl: {
-            value: 'http://192.168.7.68:8080/ussupport/rest/hello'
+            value: 'http://ussupport.attlocal.net/ussupport/rest/unsecured/summary'
           }
         }
       });

@@ -8,19 +8,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 body {
+  font-size: 1.4em;
   background: #edecec;
   -webkit-font-smoothing: antialiased;
 }
 
 body, current-weather {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /*font-size: 30px;*/
   /*color: rgba(255,255,255,0.9);*/
   color: #fff;
-  /*-webkit-font-smoothing: antialiased;*/
 }
 
 h1, .current-weather.info {
-  font-size: 2em !important;
+  font-size: 1.8em !important;
   font-weight: 400 !important;
   text-align: center !important;
 }
@@ -45,7 +46,7 @@ dashboard-app > div > div {
 latest-vaadin-version,
 office-current-weather,
 paper-material,
-dashboard-app rss-list,
+dashboard-app feed-list,
 tweet-list {
   margin: 15px;
   /*width: 400px;*/
