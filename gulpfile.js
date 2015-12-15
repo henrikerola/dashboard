@@ -24,6 +24,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
 var polybuild = require('polybuild');
+var zip = require('gulp-zip');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -285,13 +286,18 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function (cb) {
-  // Uncomment 'cache-config' after 'rename-index' if you are going to use service workers.
   runSequence(
     ['copy', 'styles'],
     'elements',
     ['jshint', 'images', 'fonts', 'html'],
-    'vulcanize','rename-index', 'remove-old-build-index', // 'cache-config',
+    'vulcanize','rename-index', 'remove-old-build-index', 'zip',
     cb);
+});
+
+gulp.task('zip', function () {
+  return gulp.src('app/**')
+    .pipe(zip('dashboard.zip'))
+    .pipe(gulp.dest('.'));
 });
 
 // Load tasks for web-component-tester
