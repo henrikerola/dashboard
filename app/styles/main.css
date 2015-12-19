@@ -13,25 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body, current-weather {
+body {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #fff;
 }
-
-h1, .current-weather.info {
-  font-size: 1.8em !important;
-  font-weight: 400 !important;
-  text-align: center !important;
-}
-
-office-current-weather {
-  margin-bottom: 0;
-}
-
-.current-weather {
-  background-color: transparent !important;
-}
-
-
-
-
