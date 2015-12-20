@@ -1,5 +1,5 @@
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/x-tweet/x-tweet.html">
+<link rel="import" href="twitter-tweet.html">
 
 <dom-module id="tweet-list">
   <template>
@@ -26,7 +26,7 @@
 
     <h1>{{header}}</h1>
     <template is="dom-repeat" items="{{items}}">
-      <x-tweet tweetid="{{item.id}}" expand="false"></x-tweet>
+      <twitter-tweet tweet-id="{{item.id}}"></twitter-tweet>
     </template>
   </template>
 

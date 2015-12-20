@@ -1,0 +1,39 @@
+<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<dom-module id="twitter-tweet">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div id="tweet"></div>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'twitter-tweet',
+    properties: {
+      tweetId: {
+        type: String,
+        observer: '_tweetIdChanged'
+      }
+    },
+    _tweetIdChanged: function() {
+      // remove possible old tweets
+      while (Polymer.dom(this.$.tweet).firstChild !== null) {
+        Polymer.dom(this.$.tweet).removeChild(Polymer.dom(this.$.tweet).firstChild);
+      }
+
+      /*global twttr */
+      twttr.widgets.createTweet(
+        this.tweetId,
+        this.$.tweet,
+        {
+          cards: 'hidden',
+          lang: 'en'
+        }
+      );
+    }
+  });
+</script>
